@@ -9,7 +9,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../constatnts/colors.dart';
-import '../widgets/bottons.dart';
+import '../widgets/buttons.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -64,7 +64,7 @@ class _WelcomeState extends State<Welcome> {
                         SizedBox(
                           height: 15,
                         ),
-                        roundBotton(
+                        roundButton(
                             context: context,
                             bgColor: MColors.primaryColor,
                             text: "Sign In",
@@ -75,7 +75,7 @@ class _WelcomeState extends State<Welcome> {
                         SizedBox(
                           height: 15,
                         ),
-                        roundBotton(
+                        roundButton(
                             context: context,
                             bgColor: MColors.whitBg,
                             text: "Sign Up",

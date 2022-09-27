@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../constatnts/dimentions.dart';
 
-Widget roundBotton(
+Widget roundButton(
     {required BuildContext context,
     Color? bgColor,
     String? text,

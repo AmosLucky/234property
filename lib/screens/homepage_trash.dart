@@ -32,17 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
       "bedroom": "3",
       "post_details":
           "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit,"
-    },
-    {
-      "user_id": "1",
-      "title": "New Layout Building",
-      "image": "https://thumbs.dreamstime.com/b/housing-estate-6045486.jpg",
-      "category": "Delux",
-      "price": "300000",
-      "bathroom": "5",
-      "bedroom": "3",
-      "post_details":
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit,"
     }
   ];
   @override
@@ -50,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: OpacityBg(
           context,
-          SingleChildScrollView(
+          Container(
             child: Column(children: [
               SizedBox(
                 height: 10,
@@ -58,6 +47,62 @@ class _HomeScreenState extends State<HomeScreen> {
               searchContainer(),
               SizedBox(
                 height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SqaureButton(
+                    onPressed: () {},
+                    color: MColors.primaryColor,
+                    textColor: MColors.white,
+                    text: "Buy",
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  SqaureButton(
+                    onPressed: () {},
+                    color: MColors.grey,
+                    textColor: MColors.black,
+                    text: "Rent",
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TitleText(
+                text: "Categories",
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CategoryWidget(
+                    icon: Icons.house,
+                    text: "Bungalow",
+                  ),
+                  CategoryWidget(
+                    icon: Icons.house,
+                    text: "Duplex",
+                  ),
+                  CategoryWidget(
+                    icon: Icons.house,
+                    text: "Appartment",
+                  ),
+                  CategoryWidget(
+                    icon: Icons.house,
+                    text: "Condo",
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TitleText(
+                text: "Nearby",
               ),
               SizedBox(
                 height: 10,
@@ -67,10 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return PostCard(postModel: PostModel.fromJSON(json[index]));
-                  }),
-              Container(
-                height: 50,
-              )
+                  })
             ]),
           )),
     );

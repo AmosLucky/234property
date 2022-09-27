@@ -12,7 +12,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../constatnts/colors.dart';
 import '../functions/navigate.dart';
-import '../widgets/bottons.dart';
+import '../widgets/buttons.dart';
 import '../widgets/text_input.dart';
 
 class SignUp extends StatefulWidget {
@@ -103,7 +103,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(
                           height: 25,
                         ),
-                        roundBotton(
+                        roundButton(
                             context: context,
                             bgColor: MColors.primaryColor,
                             text: "Sign Up",

@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore:
   page_transition:
   provider:
+  curved_navigation_bar:
   
 
 

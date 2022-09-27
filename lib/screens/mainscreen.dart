@@ -1,3 +1,5 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:dd_property/constatnts/colors.dart';
 import 'package:dd_property/screens/homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -20,6 +22,17 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
           appBar: dashboardHead(),
           body: HomeScreen(),
+          bottomNavigationBar: CurvedNavigationBar(
+            backgroundColor: MColors.lightBg,
+            items: <Widget>[
+              Icon(Icons.home, size: 30),
+              Icon(Icons.search, size: 30),
+              Icon(Icons.person, size: 30),
+            ],
+            onTap: (index) {
+              //Handle button tap
+            },
+          ),
         ));
   }
 }

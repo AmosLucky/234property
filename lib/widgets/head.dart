@@ -6,13 +6,14 @@ AppBar dashboardHead() {
   return AppBar(
     backgroundColor: Colors.white,
     leading: Container(),
-    title: Container(
-      alignment: Alignment.centerLeft,
-      child: Image.asset(
-        GetAssts.getDarkLogo(),
-        height: 30,
-      ),
-    ),
+    titleSpacing: 0.0,
+    title: Transform(
+        // you can forcefully translate values left side using Transform
+        transform: Matrix4.translationValues(-40.0, 0.0, 0.0),
+        child: Image.asset(
+          GetAssts.getDarkLogo(),
+          height: 35,
+        )),
     centerTitle: false,
     elevation: 0.1,
     actions: [

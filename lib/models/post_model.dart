@@ -1,5 +1,12 @@
 class PostModel {
-  String? user_id, category, title, price, bedroom, bathroom, image;
+  String? user_id,
+      category,
+      title,
+      price,
+      bedroom,
+      bathroom,
+      image,
+      post_details;
   PostModel(
       {required this.category,
       required this.title,
@@ -7,7 +14,8 @@ class PostModel {
       required this.price,
       required this.bathroom,
       required this.bedroom,
-      required this.image});
+      required this.image,
+      required this.post_details});
 
   factory PostModel.fromJSON(Map json) {
     return PostModel(
@@ -17,6 +25,7 @@ class PostModel {
         price: json['price'],
         bathroom: json['bathroom'],
         bedroom: json['bedroom'],
-        image: json['image']);
+        image: json['image'],
+        post_details: json['post_details']);
   }
 }

@@ -1,4 +1,6 @@
 import 'package:dd_property/constatnts/dimentions.dart';
+import 'package:dd_property/functions/navigate.dart';
+import 'package:dd_property/screens/post_detals.dart';
 import 'package:flutter/material.dart';
 
 import '../models/post_model.dart';
@@ -30,48 +32,54 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //width: 500,
-      //color: Colors.green,
-      height: 280,
-      child: Column(children: [
-        Container(
-          height: 200,
-          width: Dimentions.getSize(context).width * 0.9,
-          decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(12),
-              image: DecorationImage(
-                image: NetworkImage(widget.postModel.image!, scale: 0.5),
-              )),
-        ),
-        ListTile(
-          title: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  category(
-                    widget.postModel.category!,
-                  ),
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(title(widget.postModel.title!),
-                    style: TextStyle(fontWeight: FontWeight.bold))
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        NavigateLeftToRight(context, PostDetails(postModel: widget.postModel));
+      },
+      child: Container(
+        //width: 500,
+        //color: Colors.green,
+        height: 280,
+        child: Column(children: [
+          Container(
+            height: 200,
+            width: Dimentions.getSize(context).width * 0.9,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade400,
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(widget.postModel.image!),
+                )),
           ),
-          subtitle: Row(children: [
-            Text(category(widget.postModel.bathroom!) + " Bethdrooms"),
-            SizedBox(
-              width: 20,
+          ListTile(
+            title: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    category(
+                      widget.postModel.category!,
+                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(title(widget.postModel.title!),
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ],
+              ),
             ),
-            Text(subtitle(widget.postModel.bathroom!) + " Bethdrooms")
-          ]),
-          trailing: Text(price(widget.postModel.price!),
-              style: TextStyle(fontWeight: FontWeight.bold)),
-        )
-      ]),
+            subtitle: Row(children: [
+              Text(category(widget.postModel.bathroom!) + " Bethdrooms"),
+              SizedBox(
+                width: 20,
+              ),
+              Text(subtitle(widget.postModel.bathroom!) + " Bethdrooms")
+            ]),
+            trailing: Text(price(widget.postModel.price!),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          )
+        ]),
+      ),
     );
   }
 }

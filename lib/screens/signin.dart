@@ -10,7 +10,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../constatnts/colors.dart';
 import '../functions/navigate.dart';
-import '../widgets/bottons.dart';
+import '../widgets/buttons.dart';
 import '../widgets/text_input.dart';
 import 'homescreen.dart';
 
@@ -95,7 +95,7 @@ class _SignInState extends State<SignIn> {
                         SizedBox(
                           height: 25,
                         ),
-                        roundBotton(
+                        roundButton(
                             context: context,
                             bgColor: MColors.primaryColor,
                             text: "Sign In",
