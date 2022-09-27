@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "411502533438",
+    "project_id": "production-apps-21eb6",
+    "storage_bucket": "production-apps-21eb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411502533438:android:7227ebc3826c7447ec6a6f",
+        "android_client_info": {
+          "package_name": "com.digitaldreams.dd_property"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411502533438-ruqv5ov2hg3rnfnetmbri1j5oq98mi52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHqd3XHZ4itir8pv1DSneCRx1DHTowDwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411502533438-ruqv5ov2hg3rnfnetmbri1j5oq98mi52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
