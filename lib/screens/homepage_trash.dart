@@ -1,5 +1,5 @@
 import 'package:dd_property/constatnts/colors.dart';
-import 'package:dd_property/models/post_model.dart';
+import 'package:dd_property/models/properties_model.dart';
 import 'package:dd_property/widgets/opacitybg.dart';
 import 'package:dd_property/widgets/post_card.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: json.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return PostCard(postModel: PostModel.fromJSON(json[index]));
+                    return PostCard(
+                        postModel: PropertModel.fromJSON(json[index]));
                   })
             ]),
           )),

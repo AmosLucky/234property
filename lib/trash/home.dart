@@ -58,41 +58,58 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OpacityBg(
-        context,
-        FutureBuilder(
-            future: PropertiesRepo().fetchProperties(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 100),
-                    child: CupertinoActivityIndicator(
-                      color: MColors.primaryColor,
-                      radius: 20,
-                    ),
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return msg("An error Occoured : " + snapshot.error.toString());
-              } else if (!snapshot.hasData) {
-                return msg("No data found");
-              }
+          context,
+          SingleChildScrollView(
+            child: Column(children: [
+              SizedBox(
+                height: 10,
+              ),
+              searchContainer(),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FutureBuilder(
+                  future: PropertiesRepo().fetchProperties(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 100),
+                          child: CupertinoActivityIndicator(
+                            color: MColors.primaryColor,
+                            radius: 20,
+                          ),
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return msg(
+                          "An error Occoured : " + snapshot.error.toString());
+                    } else if (!snapshot.hasData) {
+                      return msg("No data found");
+                    }
 
-              List properies = (snapshot.data) as List;
+                    List properies = (snapshot.data) as List;
 
-              return Container(
-                margin: EdgeInsets.only(top: 10),
-                //height: 1000,
-                child: ListView.builder(
-                    itemCount: properies.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PostCard(
-                          postModel: PropertModel.fromJSON(properies[index]));
-                    }),
-              );
-            }),
-      ),
+                    return Container(
+                      height: 1000,
+                      child: ListView.builder(
+                          itemCount: properies.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return PostCard(
+                                postModel:
+                                    PropertModel.fromJSON(properies[index]));
+                          }),
+                    );
+                  }),
+              Container(
+                height: 50,
+              )
+            ]),
+          )),
     );
   }
 

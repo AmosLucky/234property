@@ -1,6 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dd_property/constatnts/colors.dart';
 import 'package:dd_property/screens/homescreen.dart';
+import 'package:dd_property/screens/profile.dart';
+import 'package:dd_property/screens/search/searscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,13 +17,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  List<Widget> screens = [HomeScreen(), Search(), Profile()];
+  int selectIndex = 0;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async => await false,
         child: Scaffold(
           appBar: dashboardHead(),
-          body: HomeScreen(),
+          body: screens[selectIndex],
           bottomNavigationBar: CurvedNavigationBar(
             backgroundColor: MColors.lightBg,
             items: <Widget>[
@@ -30,6 +34,9 @@ class _MainScreenState extends State<MainScreen> {
               Icon(Icons.person, size: 30),
             ],
             onTap: (index) {
+              setState(() {
+                selectIndex = index;
+              });
               //Handle button tap
             },
           ),

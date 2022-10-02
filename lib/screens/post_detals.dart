@@ -1,15 +1,21 @@
+import 'dart:convert';
+
 import 'package:dd_property/constatnts/colors.dart';
 import 'package:dd_property/constatnts/dimentions.dart';
-import 'package:dd_property/models/post_model.dart';
+import 'package:dd_property/models/properties_model.dart';
 import 'package:dd_property/widgets/buttons.dart';
 import 'package:dd_property/widgets/head.dart';
 import 'package:dd_property/widgets/opacitybg.dart';
+import 'package:dd_property/widgets/show_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../repos/properties_repo.dart';
+
 class PostDetails extends StatefulWidget {
-  PostModel postModel;
+  PropertModel postModel;
   PostDetails({Key? key, required this.postModel}) : super(key: key);
 
   @override
@@ -17,6 +23,24 @@ class PostDetails extends StatefulWidget {
 }
 
 class _PostDetailsState extends State<PostDetails> {
+  List? images;
+  String property_sales = "";
+  @override
+  void initState() {
+    images = PropertiesRepo().fetchImages(widget.postModel);
+    fetchDetails();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  fetchDetails() async {
+    var details =
+        await PropertiesRepo().fetchPropertyDetails(widget.postModel.properyId);
+    setState(() {
+      property_sales = details;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +48,9 @@ class _PostDetailsState extends State<PostDetails> {
       body: Container(
         child: Stack(children: [
           Container(
-            width: double.infinity,
-            height: Dimentions.getSize(context).height / 2.6,
-            child: Image.network(
-              widget.postModel.image!,
-              fit: BoxFit.fill,
-            ),
-          ),
+              width: double.infinity,
+              height: Dimentions.getSize(context).height / 2.6,
+              child: showNetworImage(url: images![0]['src'])),
           Container(
             margin: EdgeInsets.only(
               top: Dimentions.getSize(context).height / 3,
@@ -55,46 +75,77 @@ class _PostDetailsState extends State<PostDetails> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  child: Row(
-                    children: [
-                      Icon(Icons.category),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(widget.postModel.category!),
-                    ],
-                  ),
-                ),
+
+                mRow(Icons.category, 15, widget.postModel.category!),
+                mRow(Icons.person, 15, widget.postModel.username!),
+                mRow(Icons.location_on, 15, widget.postModel.location!),
+
+                /////////
                 SizedBox(
                   height: 10,
                 ),
                 Container(
                   child: Text(
-                    "N" + widget.postModel.price!,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    "₦" + widget.postModel.price!,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
+
                 Container(
-                  alignment: Alignment.center,
-                  child: roundButton(
-                      context: context,
-                      bgColor: MColors.primaryColor,
-                      text: "Buy",
-                      textColor: MColors.white,
-                      onTap: () {}),
+                  child: property_sales != ""
+                      ? Text(
+                          property_sales,
+                          style: TextStyle(fontSize: 15),
+                        )
+                      : Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 50),
+                            child: CupertinoActivityIndicator(
+                              radius: 20,
+                            ),
+                          ),
+                        ),
                 ),
+
+                // Container(
+                //   alignment: Alignment.center,
+                //   child: roundButton(
+                //       context: context,
+                //       bgColor: MColors.primaryColor,
+                //       text: "Buy",
+                //       textColor: MColors.white,
+                //       onTap: () {}),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
-                Text(widget.postModel.post_details!)
+                // Text(widget.postModel.type!)
               ],
             ),
           )
         ]),
+      ),
+    );
+  }
+
+  ////////////////////////LOADE THE PRODUCT DETAILS FROM SERVER
+
+  Widget mRow(IconData iconData, double size, String text) {
+    return Container(
+      child: Row(
+        children: [
+          Icon(
+            iconData,
+            size: size,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(text),
+        ],
       ),
     );
   }
