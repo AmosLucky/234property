@@ -1,4 +1,11 @@
+import 'package:dd_property/screens/signup.dart';
+import 'package:dd_property/screens/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../constatnts/colors.dart';
+import '../functions/navigate.dart';
+import '../widgets/buttons.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -25,7 +32,19 @@ class _ProfileState extends State<Profile> {
             Text(
               "Coming soon",
               style: TextStyle(fontWeight: FontWeight.bold),
-            )
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            roundButton(
+                context: context,
+                bgColor: MColors.greenBg,
+                text: "Sign Out",
+                textColor: Colors.white,
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut;
+                  NavigateLeftToRight(context, Welcome());
+                }),
           ],
         ),
       ),

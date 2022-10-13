@@ -1,8 +1,10 @@
 import 'package:dd_property/constatnts/assets.dart';
 import 'package:dd_property/constatnts/dimentions.dart';
 import 'package:dd_property/functions/navigate.dart';
+import 'package:dd_property/screens/mainscreen.dart';
 import 'package:dd_property/screens/signin.dart';
 import 'package:dd_property/screens/signup.dart';
+import 'package:dd_property/trash/home.dart';
 import 'package:dd_property/widgets/opacitybg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -82,6 +84,17 @@ class _WelcomeState extends State<Welcome> {
                             textColor: Colors.black,
                             onTap: () {
                               NavigateLeftToRight(context, SignUp());
+                            }),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        roundButton(
+                            context: context,
+                            bgColor: MColors.greenBg,
+                            text: "Preview",
+                            textColor: Colors.white,
+                            onTap: () {
+                              NavigateLeftToRight(context, MainScreen());
                             }),
                       ]),
                 ))),

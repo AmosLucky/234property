@@ -1,6 +1,9 @@
 import 'package:dd_property/constatnts/assets.dart';
 import 'package:dd_property/constatnts/colors.dart';
+import 'package:dd_property/screens/search/searscreen.dart';
 import 'package:flutter/material.dart';
+
+import '../functions/navigate.dart';
 
 AppBar dashboardHead() {
   return AppBar(
@@ -17,11 +20,19 @@ AppBar dashboardHead() {
     centerTitle: false,
     elevation: 0.1,
     actions: [
-      Container(
-        margin: EdgeInsets.only(right: 20),
-        child: Icon(
-          Icons.location_on,
-          color: MColors.primaryColor,
+      InkWell(
+        // onTap: () {
+        //   NavigateLeftToRight(context, Search());
+        // },
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          child: CircleAvatar(
+            backgroundColor: MColors.greenBg,
+            child: Icon(
+              Icons.location_on,
+              color: MColors.whitBg,
+            ),
+          ),
         ),
       )
     ],

@@ -22,31 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map> json = [
-    {
-      "user_id": "1",
-      "title": "New Layout Building",
-      "image":
-          "https://media.istockphoto.com/photos/craftsman-bungalow-house-picture-id1188457556?s=612x612",
-      "category": "Delux",
-      "price": "200000",
-      "bathroom": "3",
-      "bedroom": "3",
-      "post_details":
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit,"
-    },
-    {
-      "user_id": "1",
-      "title": "New Layout Building",
-      "image": "https://thumbs.dreamstime.com/b/housing-estate-6045486.jpg",
-      "category": "Delux",
-      "price": "300000",
-      "bathroom": "5",
-      "bedroom": "3",
-      "post_details":
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit, elit, sed do eiusmod or sit amet, consectetur adipisicing elit,"
-    }
-  ];
   @override
   void initState() {
     PropertiesRepo().fetchProperties();
@@ -56,42 +31,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: OpacityBg(
         context,
-        FutureBuilder(
-            future: PropertiesRepo().fetchProperties(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 100),
-                    child: CupertinoActivityIndicator(
-                      color: MColors.primaryColor,
-                      radius: 20,
-                    ),
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return msg("An error Occoured : " + snapshot.error.toString());
-              } else if (!snapshot.hasData) {
-                return msg("No data found");
-              }
+        Stack(
+          children: [
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+                width: size.width,
+                child: searchContainer()),
+            FutureBuilder(
+                future: PropertiesRepo().fetchProperties(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 100),
+                        child: CupertinoActivityIndicator(
+                          color: MColors.primaryColor,
+                          radius: 20,
+                        ),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return msg(
+                        "An error Occoured : " + snapshot.error.toString());
+                  } else if (!snapshot.hasData) {
+                    return msg("No data found");
+                  }
 
-              List properies = (snapshot.data) as List;
+                  List properies = (snapshot.data) as List;
 
-              return Container(
-                margin: EdgeInsets.only(top: 10),
-                //height: 1000,
-                child: ListView.builder(
-                    itemCount: properies.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PostCard(
-                          postModel: PropertModel.fromJSON(properies[index]));
-                    }),
-              );
-            }),
+                  return Container(
+                    margin: EdgeInsets.only(top: 70),
+                    height: double.infinity,
+                    child: ListView.builder(
+                        itemCount: properies.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return PostCard(
+                              postModel:
+                                  PropertModel.fromJSON(properies[index]));
+                        }),
+                  );
+                }),
+          ],
+        ),
       ),
     );
   }

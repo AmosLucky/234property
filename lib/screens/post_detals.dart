@@ -11,8 +11,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../functions/price_tag.dart';
 import '../repos/properties_repo.dart';
+import '../widgets/text_input.dart';
 
 class PostDetails extends StatefulWidget {
   PropertModel postModel;
@@ -86,10 +89,27 @@ class _PostDetailsState extends State<PostDetails> {
                 ),
                 Container(
                   child: Text(
-                    "₦" + widget.postModel.price!,
+                    "₦" + price(widget.postModel.price!),
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    actionButton(Icons.phone, "Call", () {
+                      // print("oo");
+                      launch("tel://" + widget.postModel.phoneNumber!);
+                    }),
+                    actionButton(Icons.message, "Chat", () {
+                      chatAlertDialog();
+                    }),
+                  ],
+                ),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -147,6 +167,79 @@ class _PostDetailsState extends State<PostDetails> {
           Text(text),
         ],
       ),
+    );
+  }
+
+  Widget actionButton(IconData icon, String text, Function()? onTap) {
+    return Container(
+      child: MaterialButton(
+          shape: StadiumBorder(),
+          color: MColors.greenBg,
+          textColor: MColors.white,
+          onPressed: onTap,
+          child: Row(
+            children: [
+              Icon(icon),
+              SizedBox(
+                width: 8,
+              ),
+              Text(text)
+            ],
+          )),
+    );
+  }
+
+  chatAlertDialog() {
+    // set up the button
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Start Chat"),
+      content: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              textInput(
+                labelText: "Name",
+                textInputType: TextInputType.text,
+                isPassword: false,
+                icon: Icons.person,
+                controller: new TextEditingController(),
+              ),
+              textInput(
+                labelText: "Phone",
+                textInputType: TextInputType.phone,
+                isPassword: false,
+                icon: Icons.phone,
+                controller: new TextEditingController(),
+              ),
+              TextFormField(
+                minLines: 5,
+                maxLines: 10,
+                decoration: InputDecoration(labelText: "Type message ..."),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              roundButton(
+                  context: context,
+                  bgColor: MColors.primaryColor,
+                  text: "Submit",
+                  textColor: MColors.white,
+                  onTap: () {
+                    Navigator.pop(context);
+                  })
+            ],
+          )),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
