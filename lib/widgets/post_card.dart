@@ -28,8 +28,8 @@ class _PostCardState extends State<PostCard> {
   }
 
   String title(String title) {
-    if (title.length > 26) {
-      return title.substring(0, 26);
+    if (title.length > 40) {
+      return title.substring(0, 40) + "...";
     } else {
       return title;
     }
@@ -82,41 +82,49 @@ class _PostCardState extends State<PostCard> {
                 ],
               ),
             ),
-            subtitle:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(category(widget.postModel.username!)),
-              SizedBox(
-                width: 20,
-              ),
-              Text(subtitle(widget.postModel.location!)),
-              Container(
-                child: Text(
-                  "₦" +
-                      price(
-                        widget.postModel.price!,
-                      ),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              )
-            ]),
-            trailing: Column(
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: MColors.primaryColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(18),
-                          bottomRight: Radius.circular(18))),
-                  padding: EdgeInsets.all(5),
-                  child: Text(
-                    "For " + widget.postModel.type!,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(category(widget.postModel.username!)),
+                  SizedBox(
+                    width: 20,
                   ),
+                  Text(subtitle(widget.postModel.location!)),
+                  Container(
+                    child: Text(
+                      "₦" +
+                          price(
+                            widget.postModel.price!,
+                          ),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                  )
+                ]),
+                Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: MColors.primaryColor,
+                        // borderRadius: BorderRadius.only(
+                        //     topLeft: Radius.circular(18),
+                        //     bottomRight: Radius.circular(18))
+                      ),
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        "For " + widget.postModel.type!,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    //IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline))
+                  ],
                 ),
-                //IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline))
               ],
             ),
+            // trailing:
           )
         ]),
       ),

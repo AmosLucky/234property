@@ -8,6 +8,10 @@ class GetAssts {
   }
 
   static String getDarkLogo() {
-    return "assets/images/dark_logo.png";
+    return "assets/images/coloured_logo.png";
+  }
+
+  static String getMapImage() {
+    return "assets/images/google_map1.jpeg";
   }
 }
